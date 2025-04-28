@@ -16,7 +16,7 @@ export default function RecordingsPage() {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ padding: '2rem', overflow: 'auto' }}>
       <h1>Recordings</h1>
       <ul className="space-y-2">
         {files.map((file) => (
