@@ -45,6 +45,7 @@ function Tabs(props: React.PropsWithChildren<{}>) {
 function DemoMeetingTab(props: { label: string }) {
   const router = useRouter();
   const [e2ee, setE2ee] = useState(false);
+  const [roomName, setRoomName] = useState('');
   const [sharedPassphrase, setSharedPassphrase] = useState(randomString(64));
   const startMeeting = () => {
     if (e2ee) {
@@ -53,11 +54,30 @@ function DemoMeetingTab(props: { label: string }) {
       router.push(`/rooms/${generateRoomId()}`);
     }
   };
+
+  const joinRoom = () => {
+    router.push(`/rooms/${roomName}`);
+  };
   return (
     <div className={styles.tabContent}>
       <p style={{ margin: 'auto auto' }}>Start a meeting with YD media server</p>
       <button style={{ marginTop: '1rem' }} className="lk-button" onClick={startMeeting}>
-        Start Meeting
+        Start New Meeting
+      </button>
+      <div style={{ margin: 'auto auto' }}>or</div>
+      <input
+        style={{ height: '2.5rem', padding: '0.5rem' }}
+        value={roomName}
+        onChange={(e) => setRoomName(e.target.value)}
+        placeholder="Room Name"
+      />
+      <button
+        style={{ marginTop: '1rem' }}
+        className="lk-button"
+        disabled={!roomName.trim()}
+        onClick={joinRoom}
+      >
+        Join Meeting Room
       </button>
     </div>
   );
@@ -74,7 +94,6 @@ export default function Page() {
         <Suspense fallback="Loading">
           <DemoMeetingTab label="Demo" />
         </Suspense>
-        <div>or</div>
         <Link href="/recordings">See Recordings</Link>
       </main>
     </>
