@@ -38,24 +38,27 @@ export async function GET(req: NextRequest) {
     }
 
     const fileOutput = new EncodedFileOutput({
-      filepath: `${new Date(Date.now()).toISOString()}-${roomName}.mp4`,
-      output: {
-        case: 's3',
-        value: new S3Upload({
-          endpoint: S3_ENDPOINT,
-          accessKey: S3_KEY_ID,
-          secret: S3_KEY_SECRET,
-          region: S3_REGION,
-          bucket: S3_BUCKET,
-        }),
-      },
+      // filepath: `${new Date(Date.now()).toISOString()}-${roomName}.mp4`,
+      // output: {
+      //   case: 's3',
+      //   value: new S3Upload({
+      //     endpoint: S3_ENDPOINT,
+      //     accessKey: S3_KEY_ID,
+      //     secret: S3_KEY_SECRET,
+      //     region: S3_REGION,
+      //     bucket: S3_BUCKET,
+      //   }),
+      // },
+      fileType: 1,
+      filepath: '/out/' + `${new Date(Date.now()).toISOString()}-${roomName}.mp4`,
     });
 
     await egressClient.startRoomCompositeEgress(
       roomName,
-      {
-        file: fileOutput,
-      },
+      // {
+      //   file: fileOutput,
+      // },
+      fileOutput,
       {
         layout: 'speaker',
       },

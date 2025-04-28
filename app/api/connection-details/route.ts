@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const participantName = request.nextUrl.searchParams.get('participantName');
     const metadata = request.nextUrl.searchParams.get('metadata') ?? '';
     const region = request.nextUrl.searchParams.get('region');
-    const livekitServerUrl = region ? getLiveKitURL(region) : LIVEKIT_URL;
+    const livekitServerUrl = LIVEKIT_URL;
     let randomParticipantPostfix = request.cookies.get(COOKIE_KEY)?.value;
     if (livekitServerUrl === undefined) {
       throw new Error('Invalid region');
@@ -55,6 +55,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
+    console.error(error);
     if (error instanceof Error) {
       return new NextResponse(error.message, { status: 500 });
     }
