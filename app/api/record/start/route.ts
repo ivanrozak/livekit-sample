@@ -1,4 +1,4 @@
-import { EgressClient, EncodedFileOutput, S3Upload } from 'livekit-server-sdk';
+import { EgressClient, EncodedFileOutput, EncodingOptionsPreset, S3Upload } from 'livekit-server-sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -58,9 +58,11 @@ export async function GET(req: NextRequest) {
       // {
       //   file: fileOutput,
       // },
+      // current setting, work fine
       fileOutput,
       {
-        layout: 'speaker',
+        layout: 'grid',
+        encodingOptions: EncodingOptionsPreset.PORTRAIT_H264_720P_30
       },
     );
 
